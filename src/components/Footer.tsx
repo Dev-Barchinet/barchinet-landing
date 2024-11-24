@@ -16,10 +16,10 @@ export const Footer = () => {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Link href={''}>
+          <Link href={'https://www.instagram.com/barchinet/'}>
             <InstagramIcon />
           </Link>
-          <Link href={''}>
+          <Link href={'https://www.linkedin.com/company/barchinet/posts/'}>
             <LinkedinIcon />
           </Link>
         </div>
