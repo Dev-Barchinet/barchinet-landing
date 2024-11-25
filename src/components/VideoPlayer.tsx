@@ -25,6 +25,12 @@ const VideoPlayer = ({ videoSrc }: { videoSrc: string }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if(videoRef.current) {
+      // setIsPlaying(videoRef.current.)
+    }
+  }, [videoRef.current]);
+
   const togglePlayPause = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
@@ -36,6 +42,22 @@ const VideoPlayer = ({ videoSrc }: { videoSrc: string }) => {
       }
     }
   };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      const handlePlay = () => setIsPlaying(true);
+      const handlePause = () => setIsPlaying(false);
+
+      video.addEventListener("play", handlePlay);
+      video.addEventListener("pause", handlePause);
+
+      return () => {
+        video.removeEventListener("play", handlePlay);
+        video.removeEventListener("pause", handlePause);
+      };
+    }
+  }, []);
 
   const handleFullscreen = () => {
     if (videoRef.current) {
@@ -120,8 +142,8 @@ const VideoPlayer = ({ videoSrc }: { videoSrc: string }) => {
           )}
         </button>
 
-        <div className="flex items-center gap-2">
-          <div className="text-xs md:text-sm text-gray-700 ml-2 sm:flex-shrink-0">
+        <div className="flex items-center row-start-2 sm:row-start-1 col-start-1 sm:col-start-2 col-end-4 sm:col-end-3 w-full gap-2">
+          <div className="text-[10px] md:text-sm text-gray-700 ml-2 sm:flex-shrink-0">
             {formatTime(currentTime)} / {formatTime(duration)}
           </div>
           <input
