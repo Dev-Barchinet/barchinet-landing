@@ -1,9 +1,11 @@
-'use client';
-import React, { useRef, useState, useEffect } from 'react';
+"use client";
+import React, { useRef, useState, useEffect } from "react";
 
 const formatTime = (time: number): string => {
   const minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time % 60).toString().padStart(2, '0');
+  const seconds = Math.floor(time % 60)
+    .toString()
+    .padStart(2, "0");
   return `${minutes}:${seconds}`;
 };
 
@@ -18,8 +20,8 @@ const VideoPlayer = ({ videoSrc }: { videoSrc: string }) => {
     const video = videoRef.current;
     if (video) {
       const updateTime = () => setCurrentTime(video.currentTime);
-      video.addEventListener('timeupdate', updateTime);
-      return () => video.removeEventListener('timeupdate', updateTime);
+      video.addEventListener("timeupdate", updateTime);
+      return () => video.removeEventListener("timeupdate", updateTime);
     }
   }, []);
 
@@ -44,7 +46,7 @@ const VideoPlayer = ({ videoSrc }: { videoSrc: string }) => {
 
     // Ensure the video is scrolled into view after fullscreen is toggled
     setTimeout(() => {
-      videoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      videoRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     }, 200);
   };
 
@@ -77,7 +79,7 @@ const VideoPlayer = ({ videoSrc }: { videoSrc: string }) => {
       {!isPlaying && (
         <div
           onClick={togglePlayPause}
-          className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-40 rounded-lg cursor-pointer group-hover:bg-opacity-50 transition"
+          className="absolute inset-0 flex row-start-1 justify-center items-center bg-black bg-opacity-40 rounded-lg cursor-pointer group-hover:bg-opacity-50 transition"
         >
           <div className="w-16 h-16 bg-white rounded-full flex justify-center items-center shadow-lg">
             <svg
@@ -92,11 +94,7 @@ const VideoPlayer = ({ videoSrc }: { videoSrc: string }) => {
         </div>
       )}
 
-      {/* Custom Controls */}
-      <div
-        className="absolute -bottom-12 sm:bottom-4 left-4 right-4 flex flex-wrap items-center justify-between bg-white bg-opacity-90 px-4 py-2 rounded-lg shadow-lg gap-2 md:gap-4"
-      >
-        {/* Play/Pause Button */}
+      <div className="absolute -bottom-12 sm:bottom-4 left-4 right-4 grid sm:grid-cols-[auto,1fr,auto] items-center bg-white bg-opacity-90 px-4 py-2 rounded-lg shadow-lg gap-2 md:gap-4">
         <button
           onClick={togglePlayPause}
           className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-teal-500 rounded-full text-white hover:bg-teal-600 transition"
@@ -122,30 +120,28 @@ const VideoPlayer = ({ videoSrc }: { videoSrc: string }) => {
           )}
         </button>
 
-        {/* Time Indicator */}
-        <div className="text-xs md:text-sm text-gray-700 ml-2">
-          {formatTime(currentTime)} / {formatTime(duration)}
+        <div className="flex items-center gap-2">
+          <div className="text-xs md:text-sm text-gray-700 ml-2 sm:flex-shrink-0">
+            {formatTime(currentTime)} / {formatTime(duration)}
+          </div>
+          <input
+            type="range"
+            className="flex-1 mx-2 md:mx-4 appearance-none rounded-lg bg-gray-300 h-1 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            min="0"
+            max={duration || 100}
+            value={currentTime}
+            onChange={handleRangeChange}
+            style={{
+              background: `linear-gradient(to right, #14b8a6 ${
+                (currentTime / duration) * 100 || 0
+              }%, #d1d5db 0%)`,
+            }}
+          />
         </div>
 
-        {/* Progress Bar */}
-        <input
-          type="range"
-          className="flex-1 mx-2 md:mx-4 appearance-none rounded-lg bg-gray-300 h-1 focus:outline-none focus:ring-2 focus:ring-teal-500"
-          min="0"
-          max={duration || 100}
-          value={currentTime}
-          onChange={handleRangeChange}
-          style={{
-            background: `linear-gradient(to right, #14b8a6 ${
-              (currentTime / duration) * 100 || 0
-            }%, #d1d5db 0%)`,
-          }}
-        />
-
-        {/* Fullscreen Button */}
         <button
           onClick={handleFullscreen}
-          className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-full text-gray-600 hover:text-teal-500 transition"
+          className="flex items-center justify-center row-start-1 col-start-3 ml-auto w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-full text-gray-600 hover:text-teal-500 transition"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -10,12 +10,8 @@ export const HeroSection = () => {
           Barchinet
           <div className="absolute bottom-1  sm:w-[200%] w-[130%] text-[#4D4D4D] left-0 right-0 h-[10px] bg-[#159a9c1f]"></div>
         </h1>
-        <p className="text-[#4D4D4D] mt-4 text-[20px] ">
-          Platform for freelancers of employer and architects
-        </p>
-        <p className="text-[#4D4D4D] text-[14px] mb-7">
-          <span className="font-bold">128+</span>
-          <span>Projects featured all over the world</span>
+        <p className="text-[#4D4D4D] mt-4 text-[20px] mb-7 ">
+          The ultimate platform for architects and clients to connect globally
         </p>
         <Countdown />
       </div>
