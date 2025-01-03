@@ -9,7 +9,7 @@ interface TimeLeft {
 }
 
 const Countdown = () => {
-  const targetDate = useMemo(() => new Date("2024-12-30T14:30:00"), []); // Add 35 days to the hardcoded date
+  const targetDate = useMemo(() => new Date("2025-01-07T14:30:00"), []); // Add 35 days to the hardcoded date
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(
     getTimeRemaining(targetDate)
   );
